@@ -1,0 +1,48 @@
+<h1 class="page-title">{{ title }}</h1>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="card" style="max-width:560px; margin:0 auto;">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Código</mat-label>
+      <input matInput formControlName="code" placeholder="Ej. 0123">
+      <mat-error *ngIf="form.get('code')?.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.get('code')?.hasError('maxlength')">Máx. 20 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Ej. Tienda Centro">
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Máx. 150 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Responsable</mat-label>
+      <input matInput formControlName="responsible" placeholder="Ej. Juan Pérez">
+      <mat-error *ngIf="form.get('responsible')?.hasError('maxlength')">Máx. 150 caracteres</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Ciudad</mat-label>
+      <input matInput formControlName="city" placeholder="Ej. Ciudad de México">
+      <mat-error *ngIf="form.get('city')?.hasError('maxlength')">Máx. 150 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Monto Máximo</mat-label>
+      <input matInput type="number" formControlName="maxQuantity" min="0" placeholder="Ej. 100">
+      <mat-error *ngIf="form.get('maxQuantity')?.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.get('maxQuantity')?.hasError('min')">No puede ser negativo</mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-stroked-button type="button" (click)="cancel()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading || form.invalid">
+        {{ id ? 'Guardar cambios' : 'Crear' }}
+      </button>
+    </div>
+  </form>
+</div>

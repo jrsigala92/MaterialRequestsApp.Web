@@ -1,0 +1,172 @@
+:host {
+  display: block;
+  background: #fdf7f7; /* subtle pink */
+  min-height: 100vh;
+}
+
+/* ───────────────── Top bar ───────────────── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.toolbar-title {
+  flex: 1;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+.spacer { flex: 1 1 auto; }
+.toolbar-submit { margin-left: 8px; font-size: 1rem; font-weight: 500; }
+
+/* ───────────────── Page shell ───────────────── */
+.page {
+  max-width: 1100px;
+  margin: 24px auto 56px;
+  padding: 0 24px;
+}
+.loading {
+  text-align: center;
+  margin: 16px 0;
+  color: rgba(0,0,0,.6);
+}
+
+/* ───────────────── Table card ───────────────── */
+.table-card {
+  padding: 0;
+  overflow: hidden;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th.mat-header-cell {
+  font-weight: 600;
+}
+td.mat-cell, th.mat-header-cell {
+  padding: 12px 16px;
+}
+.descr {
+  color: rgba(0,0,0,.72);
+}
+
+/* Remove per-cell borders, add clean row dividers */
+.mat-mdc-cell, .mat-mdc-header-cell { border-bottom: none !important; }
+.mat-mdc-row, .mat-mdc-header-row { border-bottom: 1px solid rgba(0,0,0,.12); }
+
+/* ───────────────── Quantity controls ───────────────── */
+.qty-head { text-align: center; }
+.qty-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.qty-input {
+  width: 56px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 8px;
+  padding: 6px 0;
+  background: #fff;
+  pointer-events: none; /* read-only visual */
+}
+
+/* ───────────────── Footer totals (list page) ───────────────── */
+.total-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.total-footer-content {
+  text-align: right;
+  font-weight: 600;
+  padding-right: 16px;
+}
+.totals-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  padding: 12px 24px;
+  font-weight: 600;
+}
+.total-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+.total-line .spacer { flex: 1; }
+.total-amount { font-size: 1.1rem; }
+
+/* ───────────────── Limit warning ───────────────── */
+.limit-warning {
+  display: flex;
+  justify-content: flex-end;
+  color: #b3261e;
+  background: #fdecea;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 8px 24px 0;
+  font-weight: 500;
+}
+
+/* ───────────────── Snackbars ───────────────── */
+.mat-mdc-snack-bar-container.snack-error {
+  --mdc-snackbar-container-color: #b3261e;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffffff;
+}
+.mat-mdc-snack-bar-container.snack-near-submit { margin-bottom: 96px; }
+@media (max-width: 720px) {
+  .mat-mdc-snack-bar-container.snack-near-submit { margin-bottom: 72px; }
+  .page { padding: 0 12px; }
+}
+
+/* ───────────────── Red (MMMM yyyy) next to title ───────────────── */
+.order-date {
+  color: #b3261e;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+/* ───────────────── Confirmation screen extras ───────────────── */
+/* “Creado” / “Editado” labels + muted created info */
+.header .status { margin: 4px 0; }
+.status.created { color: #2e7d32; font-weight: 600; }  /* green for created */
+.status.edited  { color: #b3261e; font-weight: 700; }  /* red for edited */
+.status .muted  { color: #666; font-weight: 400; margin-left: 6px; }
+
+/* Totals block (confirmation) */
+.totals {
+  margin-top: 12px;
+  display: grid;
+  gap: 6px;
+  max-width: 420px;
+  margin-left: auto; /* right-align block */
+}
+.totals .row {
+  display: flex;
+  justify-content: space-between;
+}
+.totals .total {
+  border-top: 1px solid rgba(0,0,0,0.12);
+  padding-top: 6px;
+  font-size: 1.05rem;
+}
+
+/* ───────────────── Submit button wrapper ───────────────── */
+.submit-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0 16px;
+}
+
+/* ───────────────── Small screens ───────────────── */
+/* If you want to hide the SKU column on small screens, add a class `col-sku` to its th/td in HTML */
+@media (max-width: 720px) {
+  .toolbar-title { font-size: 1.6rem; }
+  .qty-input { width: 48px; }
+}

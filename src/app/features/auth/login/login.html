@@ -1,0 +1,23 @@
+<mat-card class="auth-card">
+  <h1>Iniciar sesión</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Usuario o Email</mat-label>
+      <input matInput formControlName="username" />
+      <mat-error *ngIf="form.get('username')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error *ngIf="form.get('password')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="submitting">Entrar</button>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <p class="hint">¿No tienes cuenta? <a routerLink="/auth/register">Regístrate</a></p>
+  </form>
+</mat-card>

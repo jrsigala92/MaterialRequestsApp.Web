@@ -1,0 +1,216 @@
+/* .container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.quantity-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+button[mat-raised-button] {
+  min-width: 200px;
+} */
+ :host {
+  display: block;
+  background: #fdf7f7; /* subtle pink from your screenshot */
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.spacer { flex: 1 1 auto; }
+.toolbar-submit { margin-left: 8px; }
+
+.page {
+  max-width: 1100px;
+  margin: 24px auto 56px;
+  padding: 0 24px;
+}
+
+.loading { text-align: center; margin: 16px 0; color: rgba(0,0,0,.6); }
+
+.table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell {
+  font-weight: 600;
+}
+
+td.mat-cell, th.mat-header-cell {
+  padding: 12px 16px;
+}
+
+.descr {
+  color: rgba(0,0,0,.72);
+}
+
+.qty-head { text-align: center; }
+
+.qty-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.qty-input {
+  width: 48px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 8px;
+  padding: 6px 0;
+  background: #fff;
+  pointer-events: none; /* read-only visual */
+}
+
+.submit-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0 16px;
+}
+
+@media (max-width: 720px) {
+  /* Optional: hide description on small screens for better fit */
+  ng-container[matcolumndef="description"] ~ tr,
+  th[mat-header-cell]:has(+ td.descr) { display: none; }
+  .page { padding: 0 12px; }
+}
+
+/* Remove per-cell borders */
+.mat-mdc-cell, .mat-mdc-header-cell {
+  border-bottom: none !important;
+}
+
+/* Add clean full-width row divider */
+.mat-mdc-row, .mat-mdc-header-row {
+  border-bottom: 1px solid rgba(0,0,0,.12);
+}
+.topbar {
+  display: flex;
+  justify-content: center;
+  /* center content horizontally */
+  align-items: center;
+  /* center vertically */
+  text-align: center;
+}
+  .toolbar-title {
+    flex: 1;
+    /* take available space */
+    font-size: 2.5rem;
+    /* bigger font */
+    font-weight: 600;
+    /* bold */
+    text-align: center;
+  }
+
+  .spacer {
+    flex: 0 0 auto;
+    /* don’t stretch the spacer anymore */
+  }
+
+  .toolbar-submit {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .total-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+.total-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.total-line .spacer { flex: 1; }
+
+.total-amount {
+  font-size: 1.1rem;
+}
+
+.total-footer-content {
+  text-align: right;
+  font-weight: 600;
+  padding-right: 16px;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  padding: 12px 24px;
+  font-weight: 600;
+}
+
+.total-amount { font-size: 1.1rem; }
+
+.limit-warning {
+  display: flex;
+  justify-content: flex-end;  /* alínealo a la derecha como los totales */
+  color: #b3261e;             /* rojo accesible */
+  background: #fdecea;        /* fondo suave */
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 8px 24px 0;
+  font-weight: 500;
+}
+
+/* Red styling via MDC variables (Angular Material v15+) */
+.mat-mdc-snack-bar-container.snack-error {
+  --mdc-snackbar-container-color: #b3261e;        /* red background */
+  --mdc-snackbar-supporting-text-color: #ffffff;  /* text color */
+  --mat-mdc-snack-bar-button-color: #ffffff;      /* action color */
+}
+
+/* Nudge it up so it appears close to your "Ordenar" button */
+.mat-mdc-snack-bar-container.snack-near-submit {
+  margin-bottom: 96px;  /* tweak this to sit just under your button */
+}
+
+/* Optional: smaller screens: reduce the offset */
+@media (max-width: 720px) {
+  .mat-mdc-snack-bar-container.snack-near-submit {
+    margin-bottom: 72px;
+  }
+}
+.order-date {
+  color: #b3261e;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.disabled{
+  background-color:lightslategray !important;
+}

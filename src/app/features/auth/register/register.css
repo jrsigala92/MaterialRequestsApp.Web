@@ -1,0 +1,4 @@
+.auth-card { max-width: 480px; margin: 48px auto; padding: 24px; display: block; }
+form { display: grid; gap: 12px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.error { color: #c62828; margin-top: 8px; }

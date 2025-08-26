@@ -1,0 +1,15 @@
+ .topbar { position: sticky; top: 0; z-index: 1000; }
+    .title { font-weight: 600; margin-left: 4px; }
+    .spacer { flex: 1 1 auto; }
+
+    .shell { height: calc(100vh - 64px); } /* 64px toolbar */
+    .sidenav { width: 260px; border-right: 1px solid rgba(0,0,0,.12); }
+    .content { height: 100%; overflow: auto; }
+
+    mat-nav-list a.mat-list-item { gap: 12px; }
+    .active { background: rgba(0,0,0,.06); }
+
+    @media (max-width: 720px) {
+      .shell { height: calc(100vh - 56px); } /* mobile toolbar height */
+      .sidenav { width: 80vw; }
+    }

@@ -2,11 +2,18 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { API_BASE_URL } from './utils/api-base-url.token';
+import { tokenInterceptor } from './interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter(routes),  
+    provideHttpClient(withInterceptors([tokenInterceptor])),
+    { provide: API_BASE_URL, useValue: 'https://localhost:7109/api' },
+    provideAnimations()  
   ]
 };

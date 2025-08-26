@@ -1,0 +1,89 @@
+<!-- order-confirmation.component.html -->
+<div class="wrap">
+  <mat-card class="card">
+    <div class="header">
+      <mat-icon class="ok">check_circle</mat-icon>
+      <h2>¡Pedido enviado!</h2>
+
+      <p *ngIf="orderId">Folio del pedido: <strong>#{{ orderId }}</strong></p>
+      <p *ngIf="storeName">Tienda: <strong>{{ storeName }}</strong></p>
+
+      <!-- Estado de creación/edición -->
+      <p class="status created" *ngIf="!updatedAt">
+        Creado: <strong>{{ createdAt | date:'medium' }}</strong>
+      </p>
+      <p class="status edited" *ngIf="updatedAt">
+        Editado: <strong>{{ updatedAt | date:'medium' }}</strong>
+        <span class="muted"> (Creado: {{ createdAt | date:'medium' }})</span>
+      </p>
+    </div>
+
+    <div class="items" *ngIf="items?.length; else noItems">
+      <h3>Resumen</h3>
+
+      <table mat-table [dataSource]="items" class="mat-elevation-z1">
+        <!-- Artículo -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Artículo</th>
+          <td mat-cell *matCellDef="let i">{{ i.name }}</td>
+        </ng-container>
+
+        <!-- SKU -->
+        <ng-container matColumnDef="sku">
+          <th mat-header-cell *matHeaderCellDef>SKU</th>
+          <td mat-cell *matCellDef="let i">{{ i.sku }}</td>
+        </ng-container>
+
+        <!-- Cantidad -->
+        <ng-container matColumnDef="qty">
+          <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+          <td mat-cell *matCellDef="let i">{{ i.quantity }}</td>
+        </ng-container>
+
+        <!-- Precio (si viene) -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Precio</th>
+          <td mat-cell *matCellDef="let i">{{ i.price ?? 0 | currency }}</td>
+        </ng-container>
+
+        <!-- Importe línea -->
+        <ng-container matColumnDef="lineTotal">
+          <th mat-header-cell *matHeaderCellDef>Importe</th>
+          <td mat-cell *matCellDef="let i">{{ (i.quantity * (i.price ?? 0)) | currency }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <!-- Totales -->
+      <div class="totals">
+        <div class="row">
+          <span>Total de artículos:</span>
+          <strong>{{ totalQuantity }}</strong>
+        </div>
+        <div class="row" *ngIf="hasPrices">
+          <span>Subtotal:</span>
+          <strong>{{ subtotal | currency }}</strong>
+        </div>
+        <div class="row" *ngIf="hasPrices && taxAmount > 0">
+          <span>Impuestos ({{ (taxRate * 100) | number:'1.0-2' }}%):</span>
+          <strong>{{ taxAmount | currency }}</strong>
+        </div>
+        <div class="row total" *ngIf="hasPrices">
+          <span>Total:</span>
+          <strong>{{ total | currency }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noItems>
+      <p>No se encontró el detalle del pedido.</p>
+    </ng-template>
+
+    <div class="actions">
+      <a mat-flat-button color="primary" (click)="newOrder()">Ir al inicio</a>
+    </div>
+  </mat-card>
+</div>
+

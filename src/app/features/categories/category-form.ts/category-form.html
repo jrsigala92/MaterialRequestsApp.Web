@@ -1,0 +1,20 @@
+<h1 class="page-title">{{ title }}</h1>
+
+<div class="card" style="max-width:560px; margin:0 auto;">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Ej. Limpieza">
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Máx. 100 caracteres</mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-stroked-button type="button" (click)="cancel()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading || form.invalid">
+        {{ id ? 'Guardar cambios' : 'Crear' }}
+      </button>
+    </div>
+  </form>
+</div>

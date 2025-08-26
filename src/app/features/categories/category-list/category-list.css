@@ -1,0 +1,12 @@
+/* reuse your global helpers */
+.actions-header, .actions-cell { white-space: nowrap; }
+.actions-cell button + button { margin-left: 4px; }
+table { width: 100%; }
+.card {
+  width: 100% !important;
+  max-width: 1500px;
+}
+
+mat-table {
+  width: 100% !important;
+}

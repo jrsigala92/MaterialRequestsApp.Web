@@ -1,0 +1,43 @@
+<h1 class="page-title">{{ title }}</h1>
+
+<div class="card" style="max-width:640px; margin:0 auto;">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Ej. Trapeador Pro">
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Máx. 120 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>SKU</mat-label>
+      <input matInput formControlName="sku" placeholder="Ej. QW-0001">
+      <mat-error *ngIf="form.get('sku')?.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.get('sku')?.hasError('maxlength')">Máx. 60 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoryId">
+        <mat-option *ngFor="let c of categories()" [value]="c.id">
+          {{ c.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('categoryId')?.hasError('required')">Seleccione una categoría</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Precio</mat-label>
+      <input type="number" matInput formControlName="price" min="0" step="0.01" placeholder="0.00">
+      <mat-error *ngIf="form.get('price')?.hasError('required')">Requerido</mat-error>
+      <mat-error *ngIf="form.get('price')?.hasError('min')">No puede ser negativo</mat-error>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-stroked-button type="button" (click)="cancel()">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading || form.invalid">
+        {{ id ? 'Guardar cambios' : 'Crear' }}
+      </button>
+    </div>
+  </form>
+</div>

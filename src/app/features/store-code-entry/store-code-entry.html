@@ -1,0 +1,52 @@
+<div class="app-container">
+  <h1 class="page-title">Surtido de Material</h1>
+  <!-- <header class="app-header"> -->
+    <!-- <h1 class="page-title" style="border:0;margin:0;color:#fff;">Surtido de Material</h1> -->
+  <!-- </header> -->
+
+  <main class="app-main">
+    <form [formGroup]="form" class="card" style="max-width:560px; width:100%;">
+      <h2 class="store-legend">Favor de ingresar la tienda:</h2>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Número de tienda</mat-label>
+        <input type="text" matInput formControlName="storeCode"
+               [matAutocomplete]="codeAuto" [disabled]="loading"
+               placeholder="Escriba o seleccione el código"/>
+        <mat-autocomplete #codeAuto="matAutocomplete" autoActiveFirstOption>
+          <mat-option *ngFor="let code of (filteredCodes$ | async)" [value]="code">
+            {{ code }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.get('storeCode')?.hasError('required')">
+          Seleccione el número de tienda
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de tienda</mat-label>
+        <input type="text" matInput formControlName="storeName"
+               [matAutocomplete]="nameAuto" [disabled]="loading"
+               placeholder="Escriba o seleccione el nombre"/>
+        <mat-autocomplete #nameAuto="matAutocomplete" autoActiveFirstOption>
+          <mat-option *ngFor="let name of (filteredNames$ | async)" [value]="name">
+            {{ name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.get('storeName')?.hasError('required')">
+          Seleccione el nombre de la tienda
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-error" *ngIf="form.dirty && form.hasError('pairMismatch')">
+        La combinación de número y nombre de tienda no es válida.
+      </div>
+
+      <button mat-raised-button color="primary"
+              (click)="onSubmit()"
+              [disabled]="loading || form.invalid">
+        {{ loading ? 'Validando...' : 'Entrar' }}
+      </button>
+    </form>
+  </main>
+</div>

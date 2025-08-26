@@ -1,0 +1,7 @@
+mat-form-field { width: 100%; }
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .75rem;
+  margin-top: 1rem;
+}

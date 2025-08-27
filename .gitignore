@@ -1,1 +1,11 @@
 node_modules
+.angular/cache/20.1.6/MaterialRequestsApp.Web/.tsbuildinfo
+.angular/cache/20.1.6/MaterialRequestsApp.Web/angular-compiler.db
+.angular/cache/20.1.6/MaterialRequestsApp.Web/angular-compiler.db-lock
+dist/MaterialRequestsApp.Web/3rdpartylicenses.txt
+dist/MaterialRequestsApp.Web/prerendered-routes.json
+dist/MaterialRequestsApp.Web/browser/favicon.ico
+dist/MaterialRequestsApp.Web/browser/index.html
+dist/MaterialRequestsApp.Web/browser/main-OHGJNTMM.js
+dist/MaterialRequestsApp.Web/browser/polyfills-B6TNHZQ6.js
+dist/MaterialRequestsApp.Web/browser/styles-77QD2CHE.css

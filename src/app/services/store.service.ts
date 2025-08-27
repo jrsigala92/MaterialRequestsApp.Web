@@ -21,7 +21,7 @@ export class StoreService {
     return this.http.get<Store[]>(`${this.baseUrl}/${this.resource}`);
   }
 warmup(): Observable<any> {
-  return this.http.get(`${this.baseUrl}/${this.resource}/health`, { responseType: 'text' });
+  return this.http.get(`${this.baseUrl}/health`, { responseType: 'text' });
 }
   get(id: string) {
     return this.http.get<Store>(`${this.baseUrl}/${this.resource}/${id}`);

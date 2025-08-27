@@ -11,7 +11,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Número de tienda</mat-label>
         <input type="text" matInput formControlName="storeCode"
-               [matAutocomplete]="codeAuto" [disabled]="loading"
+               [matAutocomplete]="codeAuto" (focus)="onFocus()" [disabled]="loading"
                placeholder="Escriba o seleccione el código"/>
         <mat-autocomplete #codeAuto="matAutocomplete" autoActiveFirstOption>
           <mat-option *ngFor="let code of (filteredCodes$ | async)" [value]="code">

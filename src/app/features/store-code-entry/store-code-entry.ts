@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { finalize, map, Observable, retry, startWith, switchMap } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-store-code-entry',
@@ -45,7 +45,7 @@ export class StoreCodeEntryComponent implements OnInit {
     stores: Store[] = [];
   codes: string[] = [];
   names: string[] = [];
-
+  loaded: boolean = false;
   filteredCodes$!: Observable<string[]>;
   filteredNames$!: Observable<string[]>;
 
@@ -76,25 +76,7 @@ export class StoreCodeEntryComponent implements OnInit {
     this.filteredNames$ = this.form.get('storeName')!.valueChanges.pipe(
       startWith(''),
       map(v => this.filter(this.names, v))
-    );
-
-    this.storeService.warmup().pipe(
-  // damos chance a que el API despierte
-  switchMap(() => this.storeService.getAll()),
-  // si aún está frío, reintenta un par de veces con pequeña espera
-  retry({ count: 2, delay: 1200 }),
-  finalize(() => this.loading = false)
-).subscribe({
-  next: (stores) => {
-    this.stores = stores ?? [];
-    this.codes  = Array.from(new Set(this.stores.map(s => s.code))).sort();
-    this.names  = Array.from(new Set(this.stores.map(s => s.name))).sort();
-    this.form.updateValueAndValidity({ emitEvent: false });
-  },
-  error: () => {
-    this.snackBar.open('Error al cargar las tiendas', 'Close', { duration: 5000 });
-  }
-}); 
+    );   
   }
 
     private filter(source: string[], val: string | null): string[] {
@@ -103,6 +85,28 @@ export class StoreCodeEntryComponent implements OnInit {
     return source.filter(opt => opt.toLowerCase().includes(q));
   }
   
+  onFocus(){
+    if (!this.loaded) {
+      this.storeService.getAll().subscribe({
+      next: (stores) => {
+        this.stores = stores ?? [];
+        this.codes = Array.from(new Set(this.stores.map(s => s.code))).sort();
+        this.names = Array.from(new Set(this.stores.map(s => s.name))).sort();
+
+        // re-check pair validity now that we have data
+        this.form.updateValueAndValidity({ emitEvent: false });
+      },
+      error: () => {
+        this.snackBar.open('Error al cargar las tiendas', 'Close', { duration: 5000 });
+      },
+      complete: () => {
+        this.loading = false;
+        this.loaded = true;
+      }
+    });
+    }
+  }
+
   onSubmit(): void {
     this.storeCode = this.form.get('storeCode')?.value ?? '';
     if (!this.storeCode) {

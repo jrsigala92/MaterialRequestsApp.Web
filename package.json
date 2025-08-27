@@ -2,11 +2,12 @@
   "name": "material-requests-app.web",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "build": "ng build --configuration=production",
+    "heroku-postbuild": "npm run build",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.x"
   },
   "prettier": {
     "printWidth": 100,
@@ -31,6 +32,7 @@
     "@angular/material": "^20.1.6",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

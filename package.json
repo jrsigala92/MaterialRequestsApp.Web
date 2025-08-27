@@ -2,24 +2,12 @@
   "name": "material-requests-app.web",
   "version": "0.0.0",
   "scripts": {
-    "build": "ng build --configuration production --output-path=dist",
+    "build": "ng build --configuration production",
     "start": "node server.js",
     "heroku-postbuild": "npm run build"
   },
   "engines": {
-    "node": ">=18 <25"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
+    "node": "20.x"
   },
   "private": true,
   "dependencies": {
@@ -32,10 +20,10 @@
     "@angular/material": "^20.1.6",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0",
-    "express": "^5.1.0"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular/build": "^20.1.6",

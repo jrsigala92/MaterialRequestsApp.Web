@@ -13,7 +13,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),  
     provideHttpClient(withInterceptors([tokenInterceptor])),
-    { provide: API_BASE_URL, useValue: 'https://localhost:7109/api' },
+    { provide: API_BASE_URL, useValue: 'http://csigala-002-site1.rtempurl.com/api' },
+    // { provide: API_BASE_URL, useValue: 'https://localhost:7109/api' },
     provideAnimations()  
   ]
 };

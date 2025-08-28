@@ -7,8 +7,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, Observable, shareReplay } from 'rxjs';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -29,11 +29,19 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.css',
 })
 export class App {
-   private bp = inject(BreakpointObserver);
-  isHandset$ = this.bp.observe('(max-width: 720px)').pipe(
-    map(r => r.matches),
-    shareReplay({ bufferSize: 1, refCount: true })
-  );
+  isHandset$: Observable<boolean>;
+  toolbarHeight$: Observable<number>;
+
+  constructor(private bp: BreakpointObserver) {
+    this.isHandset$ = this.bp.observe(Breakpoints.Handset)
+      .pipe(map(r => r.matches), shareReplay(1));
+
+    this.toolbarHeight$ = this.isHandset$.pipe(
+      map(isPhone => (isPhone ? 56 : 64)), // Material default heights
+      shareReplay(1)
+    );
+  }
+
   protected readonly title = signal('MaterialRequestsApp.Web');
   
   auth = inject(AuthService);

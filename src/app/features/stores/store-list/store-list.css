@@ -10,3 +10,59 @@ table { width: 100%; }
 mat-table {
   width: 100% !important;
 }
+
+.page-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.page-actions .btn { white-space: nowrap; }
+.page-actions .grow { width: 100%; }
+
+/* Stack actions on small screens */
+@media (max-width: 600px) {
+  .page-actions {
+    grid-template-columns: 1fr;
+  }
+  .page-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Desktop table container with safe horizontal scroll */
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+.responsive-table {
+  min-width: 720px; /* prevent cramped columns; enables scroll under 720px */
+}
+
+/* Mobile cards */
+.card-list {
+  display: grid;
+  gap: 12px;
+}
+.store-card {
+  border-radius: 12px;
+}
+.card-title {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.card-title .muted {
+  font-weight: normal;
+  opacity: 0.7;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+.kv { display: grid; grid-template-columns: 120px 1fr; gap: 8px; }
+.k { font-weight: 600; opacity: 0.8; }
+.v { word-break: break-word; }

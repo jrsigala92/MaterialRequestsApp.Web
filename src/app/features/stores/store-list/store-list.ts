@@ -10,10 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
-import { debounceTime } from 'rxjs';
+import { debounceTime, map, Observable, shareReplay } from 'rxjs';
 import { StoreService } from '../../../services/store.service';
 import { Store } from '../../../models/store.model';
 import { PaggedRequestQuery } from '../../../models/querys/pagged-request.query';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -26,6 +28,7 @@ import { PaggedRequestQuery } from '../../../models/querys/pagged-request.query'
     CommonModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatCardModule,
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
@@ -36,9 +39,14 @@ import { PaggedRequestQuery } from '../../../models/querys/pagged-request.query'
   ],
 })
 export class StoreListComponent implements OnInit, AfterViewInit {
+    isHandset$: Observable<boolean>;
+
   private svc = inject(StoreService);
   private router = inject(Router);
-
+ constructor(private bp: BreakpointObserver) {
+    this.isHandset$ = this.bp.observe(Breakpoints.Handset)
+      .pipe(map(r => r.matches), shareReplay(1));
+  }
   displayedColumns = ['code', 'name', 'responsible', 'city' ,'maxQuantity', 'actions'];
   dataSource = new MatTableDataSource<Store>([]);
 

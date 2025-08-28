@@ -13,3 +13,59 @@
       .shell { height: calc(100vh - 56px); } /* mobile toolbar height */
       .sidenav { width: 80vw; }
     }
+
+    /* Toolbar */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.title {
+  font-weight: 600;
+  /* clamp title to avoid overflow on small screens */
+  max-width: 45vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.spacer { flex: 1; }
+.welcome {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ml-8 { margin-left: 8px; }
+
+/* Shell sizing */
+.shell {
+  position: relative;
+  height: calc(100dvh - var(--toolbar-h, 64px));
+  margin-top: var(--toolbar-h, 64px);
+}
+
+/* Content padding */
+.content {
+  padding: 16px;
+}
+@media (max-width: 600px) {
+  .content { padding: 12px; }
+}
+
+/* Sidenav icon-only mode for phones */
+.sidenav {
+  width: 260px;
+}
+.icon-only .mat-list-item .mat-mdc-list-item-unscoped-content span {
+  display: none; /* hide labels on phone */
+}
+.icon-only .mat-list-item .mat-icon {
+  margin-right: 0;
+}
+.icon-only .mat-list-item {
+  justify-content: center;
+}
+
+/* Improve list-item spacing */
+.mat-nav-list a.mat-list-item {
+  gap: 12px;
+}

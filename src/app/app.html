@@ -2,39 +2,67 @@
   <button mat-icon-button (click)="drawer.toggle()" aria-label="Menú">
     <mat-icon>menu</mat-icon>
   </button>
-  <span class="title">Aldo's App </span>
+
+  <span class="title">Aldo's App</span>
   <span class="spacer"></span>
 
+  <!-- Authenticated -->
   <ng-container *ngIf="auth.session as s; else loggedOut">
-    <span class="welcome">
+    <!-- Desktop/tablet: full welcome + logout -->
+    <span class="welcome" *ngIf="!(isHandset$ | async); else handsetUserMenu">
       <mat-icon>account_circle</mat-icon>
-      Bienvenido
+      Bienvenido&nbsp;
       <ng-container *ngIf="s.firstName || s.lastName; else userOnly">
         {{ s.firstName || '' }} {{ s.lastName || '' }}
       </ng-container>
       <ng-template #userOnly>{{ s.username }}</ng-template>
+
+      <button mat-button (click)="logout()" class="ml-8">
+        <mat-icon>logout</mat-icon>&nbsp;Salir
+      </button>
     </span>
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <button mat-button (click)="logout()">
-      <mat-icon>logout</mat-icon> Salir
-    </button>
+
+    <!-- Phone: compact user menu -->
+    <ng-template #handsetUserMenu>
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="Usuario">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu" xPosition="before">
+        <button mat-menu-item disabled>
+          <mat-icon>person</mat-icon>
+          <span>{{ s.firstName || s.username }}</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Salir</span>
+        </button>
+      </mat-menu>
+    </ng-template>
   </ng-container>
 
   <!-- Logged out -->
   <ng-template #loggedOut>
-    <button mat-button [routerLink]="['/auth/login']">
+    <!-- Desktop/tablet -->
+    <button mat-button [routerLink]="['/auth/login']" *ngIf="!(isHandset$ | async)">
       <mat-icon>login</mat-icon> Entrar
+    </button>
+    <!-- Phone -->
+    <button mat-icon-button [routerLink]="['/auth/login']" *ngIf="isHandset$ | async" aria-label="Entrar">
+      <mat-icon>login</mat-icon>
     </button>
   </ng-template>
 </mat-toolbar>
 
-<mat-sidenav-container class="shell">
-  <mat-sidenav #drawer class="sidenav" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)"
-    [fixedInViewport]="!(isHandset$ | async)" [fixedTopGap]="64">
-    <mat-nav-list>
+<mat-sidenav-container class="shell" [style.--toolbar-h.px]="(toolbarHeight$ | async) || 64">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)"
+    [fixedInViewport]="true"
+    [fixedTopGap]="(toolbarHeight$ | async) || 64"
+  >
+    <mat-nav-list [class.icon-only]="isHandset$ | async">
       <!-- Always visible -->
       <a mat-list-item routerLink="/store-code" routerLinkActive="active">
         <mat-icon>shopping_cart</mat-icon><span>Realizar pedido</span>
@@ -61,7 +89,6 @@
         <mat-icon>person_add</mat-icon><span>Registrar Usuario</span>
       </a>
     </mat-nav-list>
-
   </mat-sidenav>
 
   <mat-sidenav-content class="content">
